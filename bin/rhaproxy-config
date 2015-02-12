@@ -1,0 +1,5 @@
+#! /usr/bin/env ruby
+
+require 'rhaproxy/config/server'
+
+Rhaproxy::Config::Server.run(ARGV)
