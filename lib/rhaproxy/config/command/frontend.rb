@@ -13,7 +13,15 @@ module Rhaproxy
         def get(args)
           frontend_name = args.pop
           frontend = @haproxy_config.frontend(frontend_name)
-          raise StandardError
+
+          output = "\nfrontend #{frontend_name}\n"
+          output += frontend.config.map {|config_name, config_value|
+            if ['default', 'use'].include? config_name
+              "#{INDENTATION}#{config_name}#{config_value}"
+            else
+              "#{INDENTATION}#{config_name} #{config_value}"
+            end
+          }.join("\n") + "\n"
         end
 
       end
