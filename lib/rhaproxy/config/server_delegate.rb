@@ -40,7 +40,7 @@ module Rhaproxy
       end
 
       def print_help
-        Dir.glob("#{File.dirname(__FILE__)}/command/*.rb").map { |filepath|
+        help_listing = Dir.glob("#{File.dirname(__FILE__)}/command/*.rb").map { |filepath|
           filename = File.basename(filepath).gsub(/\.rb$/,'')
           puts filename
           if filename != 'base'
@@ -50,7 +50,17 @@ module Rhaproxy
           else
             nil
           end
-        }.compact.join("\n")
+        }.compact.map { |resource_help|
+          resource_help.split("\n")
+        }.flatten
+
+        len_max_string = help_listing.group_by(&:size).max.last[0].length
+
+        formatted_help_listing = help_listing.sort.map { |resource_help|
+            "  #{resource_help.ljust(len_max_string)} : "
+        }
+
+        "Unknown command. Please enter one of the following commands only :\n#{formatted_help_listing.join("\n")}\n"
       end
 
       def respond_with_prompt

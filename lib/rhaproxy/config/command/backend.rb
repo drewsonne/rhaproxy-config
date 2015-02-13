@@ -8,7 +8,7 @@ module Rhaproxy
 
         def self.print_help
           %q{show backends
-get backend <backend_name>}
+get backend [backend_name]}
         end
 
         def show(*args)

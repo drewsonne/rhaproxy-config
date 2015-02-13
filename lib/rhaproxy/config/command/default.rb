@@ -8,7 +8,7 @@ module Rhaproxy
 
         def self.print_help
           %q{show defaults
-get default <config_name>}
+get default [config_name]}
         end
 
         def show(*args)

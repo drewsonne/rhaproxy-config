@@ -5,8 +5,8 @@ module Rhaproxy
       class Server < Base
 
         def self.print_help
-          %q{show server <backend_name>
-get server <backend_name>/<server_name>}
+          %q{show server [backend_name]
+get server [backend_name]/[server_name]}
         end
 
         def show(args)
