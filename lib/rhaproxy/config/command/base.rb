@@ -28,7 +28,7 @@ module Rhaproxy
         def get_array_attr(group_name, array_struct, attr_name)
           "\n#{group_name}\n" + array_struct.map { |backend|
             INDENTATION + backend.send(attr_name)
-          }.join("\n")
+          }.join("\n") + "\n"
         end
 
       end
