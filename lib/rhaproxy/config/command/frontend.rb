@@ -17,9 +17,9 @@ module Rhaproxy
           output = "\nfrontend #{frontend_name}\n"
           output += frontend.config.map {|config_name, config_value|
             if ['default', 'use'].include? config_name
-              "#{INDENTATION}#{config_name}#{config_value}"
+              "#{INDT}#{config_name}#{config_value}"
             else
-              "#{INDENTATION}#{config_name} #{config_value}"
+              "#{INDT}#{config_name} #{config_value}"
             end
           }.join("\n") + "\n"
         end

@@ -4,8 +4,32 @@ module Rhaproxy
     module Command
       class Server < Base
 
-        def show
-          "server_list"
+        def show(args)
+          backend_name = args.pop
+          output = "\nbackend #{backend_name}\n"
+          output += print_servers(@haproxy_config.backend(backend_name))
+        end
+
+        def get(args)
+          backend_name, server_name = args[0].split("/")
+          "\n#{print_server(server_name, @haproxy_config.backend(backend_name).servers[server_name])}\n"
+        end
+
+        private
+
+        def print_servers(backend)
+          "#{backend.servers.map {|server_name, server_data|
+            print_server(server_name, server_data, INDT)
+          }.join("\n")}\n"
+        end
+
+        def print_server(server_name, server_data, indentation='')
+          "#{indentation}server #{server_name} " +
+          "#{server_data.host}:" +
+          "#{server_data.port} " +
+          server_data.attributes.map { |attribute_key, attribute_value|
+            attribute_key if attribute_value
+          }.join(", ")
         end
 
       end

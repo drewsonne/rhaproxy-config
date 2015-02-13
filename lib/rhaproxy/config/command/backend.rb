@@ -1,10 +1,10 @@
-require 'rhaproxy/config/command/base'
+require 'rhaproxy/config/command/server'
 require 'haproxy-tools'
 
 module Rhaproxy
   module Config
     module Command
-      class Backend < Base
+      class Backend < Server
 
         def show(*args)
           get_array_attr('backends', @haproxy_config.backends, 'name')
@@ -16,20 +16,9 @@ module Rhaproxy
 
           # Render Options
           output = "\nbackend #{backend_name}\n"
-          output += backend.config.map {|config_name, config_value|
-            "#{INDENTATION}#{config_name} #{config_value}"
-          }.join("\n") + "\n"
-          output += backend.options.map {|option_name, option_value|
-            "#{INDENTATION}#{option_name} #{option_value}"
-          }.join("\n")
-          output += backend.servers.map {|server_name, server_data|
-            "#{INDENTATION}server #{server_name} " +
-            "#{server_data.host}:" +
-            "#{server_data.port} " +
-            server_data.attributes.map { |attribute_key, attribute_value|
-              attribute_key if attribute_value
-            }.join(", ")
-          }.join("\n")
+          output += backend.config.map  { |k, v| "#{INDT}#{k} #{v}\n" }.join
+          output += backend.options.map { |k, v| "#{INDT}#{k} #{v}\n" }.join
+          output += print_servers(backend)
         end
 
       end
