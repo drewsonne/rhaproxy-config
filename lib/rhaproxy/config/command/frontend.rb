@@ -6,6 +6,11 @@ module Rhaproxy
     module Command
       class Frontend < Base
 
+        def self.print_help
+          %q{show frontend
+get frontend <frontend_name>}
+        end
+        
         def show(*args)
           get_array_attr('frontends', @haproxy_config.frontends, 'name')
         end

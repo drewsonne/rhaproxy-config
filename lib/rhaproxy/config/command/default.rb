@@ -6,6 +6,11 @@ module Rhaproxy
     module Command
       class Default < Base
 
+        def self.print_help
+          %q{show defaults
+get default <config_name>}
+        end
+
         def show(*args)
           output = "\ndefaults\n"
           output += @haproxy_config.defaults[0].config.map {|default_name, default_value|

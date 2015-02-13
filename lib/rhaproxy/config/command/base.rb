@@ -25,6 +25,10 @@ module Rhaproxy
           throw NotImplementedError
         end
 
+        def self.print_help
+          throw NotImplementedError
+        end
+
         def get_array_attr(group_name, array_struct, attr_name)
           "\n#{group_name}\n" + array_struct.map { |backend|
             INDT + backend.send(attr_name)

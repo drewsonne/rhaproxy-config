@@ -4,6 +4,11 @@ module Rhaproxy
     module Command
       class Server < Base
 
+        def self.print_help
+          %q{show server <backend_name>
+get server <backend_name>/<server_name>}
+        end
+
         def show(args)
           backend_name = args.pop
           output = "\nbackend #{backend_name}\n"

@@ -6,6 +6,11 @@ module Rhaproxy
     module Command
       class Backend < Server
 
+        def self.print_help
+          %q{show backends
+get backend <backend_name>}
+        end
+
         def show(*args)
           get_array_attr('backends', @haproxy_config.backends, 'name')
         end
